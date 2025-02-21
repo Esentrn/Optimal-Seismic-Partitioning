@@ -5,11 +5,10 @@
 #include <curl/curl.h>
 #include <graphics.h>
 
-// 220201109 ESENGÜL TURAN 220201102 CANAN KORKUT PROLAB PROJE1
 
-int kontrol = 0; //Kodun çalışma kontrolü için kullanılan bir global değişken
+int kontrol = 0; //Kodun Ã§alÄ±ÅŸma kontrolÃ¼ iÃ§in kullanÄ±lan bir global deÄŸiÅŸken
 
-//Çokgenin alanını Gauss alan formülü ie hesaplama (shoelace formülü olarak da bilinir)
+//Ã‡okgenin alanÄ±nÄ± Gauss alan formÃ¼lÃ¼ ie hesaplama (shoelace formÃ¼lÃ¼ olarak da bilinir)
 //Alan (A) = 1/2 *|E(xi * yi+1 - xi+1 * yi)|
 int cokgenAlani(int n, int px[], int py[]) {
     int alan = 0;
@@ -34,11 +33,11 @@ int cokgenAlani(int n, int px[], int py[]) {
     return alan;
 }
 
-//Noktanın çokgenin içinde olup olmadığını kontrol eden fonksiyon.
+//NoktanÄ±n Ã§okgenin iÃ§inde olup olmadÄ±ÄŸÄ±nÄ± kontrol eden fonksiyon.
 int icindeMi(int x[], int y[], int n, int noktaX, int noktaY) {
     int i, j, d = 0;
 
-    for (int i = 0; i < n; i++) { //Noktanın çokgenin içinde olup olmadığını kontrol eden çokgen kenarlarını dolaşan döngü
+    for (int i = 0; i < n; i++) { //NoktanÄ±n Ã§okgenin iÃ§inde olup olmadÄ±ÄŸÄ±nÄ± kontrol eden Ã§okgen kenarlarÄ±nÄ± dolaÅŸan dÃ¶ngÃ¼
 
         int j = i - 1;
         if (i == 0) {
@@ -46,7 +45,7 @@ int icindeMi(int x[], int y[], int n, int noktaX, int noktaY) {
         }
 
         if ((y[i] > noktaY) != (y[j] > noktaY) && (noktaX < (x[j] - x[i]) * (noktaY - y[i]) / (y[j] - y[i]) + x[i])) {
-            d = !d;  // Nokta, çizgiyi kesiyorsa veya çizginin sınır noktasından geçiyorsa, içinde sayılır.
+            d = !d;  // Nokta, Ã§izgiyi kesiyorsa veya Ã§izginin sÄ±nÄ±r noktasÄ±ndan geÃ§iyorsa, iÃ§inde sayÄ±lÄ±r.
         }
     }
 
@@ -61,7 +60,7 @@ int boyaCokgen(int x[], int y[], int n, int kare) {
     int maxY = y[0];
 
     for (int i = 1; i < n; i++) {
-        if (x[i] < minX) {                 //Çokgenin sınırları hesaplanır.
+        if (x[i] < minX) {                 //Ã‡okgenin sÄ±nÄ±rlarÄ± hesaplanÄ±r.
             minX = x[i];
         }
         if (x[i] > maxX) {
@@ -78,7 +77,7 @@ int boyaCokgen(int x[], int y[], int n, int kare) {
 
     int kareSayisi = 0;
 
-    for (int i = minX; i <= maxX; i += kare) {      //X ve Y koordinatları arasında dolaşır.
+    for (int i = minX; i <= maxX; i += kare) {      //X ve Y koordinatlarÄ± arasÄ±nda dolaÅŸÄ±r.
         for (int j = minY; j <= maxY; j += kare) {
             int icindeNoktaVar = 0;
 
@@ -87,7 +86,7 @@ int boyaCokgen(int x[], int y[], int n, int kare) {
                     int xGonder = i + xKonum;
                     int yGonder = j + yKonum;
 
-                    //Eğer birim karenin içinde çokgenin bir noktası varsa, icindeNoktaVar'ı 1 yapar ve döngüyü kırar.
+                    //EÄŸer birim karenin iÃ§inde Ã§okgenin bir noktasÄ± varsa, icindeNoktaVar'Ä± 1 yapar ve dÃ¶ngÃ¼yÃ¼ kÄ±rar.
 					if (icindeMi(x, y, n, xGonder, yGonder)) {
                         icindeNoktaVar = 1;
                         break;
@@ -99,9 +98,9 @@ int boyaCokgen(int x[], int y[], int n, int kare) {
             }
 
             if (icindeNoktaVar) { 
-                kareSayisi++;                      //Eğer birim kare çokgenin içindeyse, birim kare sayısını arttırır.
+                kareSayisi++;                      //EÄŸer birim kare Ã§okgenin iÃ§indeyse, birim kare sayÄ±sÄ±nÄ± arttÄ±rÄ±r.
                 if (kontrol == 0) {
-                    bar(i, j, i + kare, j + kare); //Eğer birim kare çokgenin içindeyse, boyayı ekler.
+                    bar(i, j, i + kare, j + kare); //EÄŸer birim kare Ã§okgenin iÃ§indeyse, boyayÄ± ekler.
                     setcolor(BLACK);
                     rectangle(i, j, i + kare, j + kare);
                 }
@@ -117,7 +116,7 @@ int boyaCokgen(int x[], int y[], int n, int kare) {
 
 void optimalCizim(int x[], int y[], int s, int kare) {
     int gd = DETECT, gm;
-    initgraph(&gd, &gm, "");  //Grafik modunu başlatır.
+    initgraph(&gd, &gm, "");  //Grafik modunu baÅŸlatÄ±r.
     setbkcolor(WHITE);
     cleardevice();			 //Pencereyi temizler.
 
@@ -125,7 +124,7 @@ void optimalCizim(int x[], int y[], int s, int kare) {
 
     setcolor(8);
 
-    // Izgara çizer.
+    // Izgara Ã§izer.
     for (int i = 1; i < 10000; i++) {
         line(i * 10, 0, i * 10, 10000);
     }
@@ -135,54 +134,54 @@ void optimalCizim(int x[], int y[], int s, int kare) {
     }
 
     
-    int baslangicNoktasiX[k / 2] = {0};  //Her noktanın başlangıç noktası olup olmadığını izlemek için dizi.
+    int baslangicNoktasiX[k / 2] = {0};  //Her noktanÄ±n baÅŸlangÄ±Ã§ noktasÄ± olup olmadÄ±ÄŸÄ±nÄ± izlemek iÃ§in dizi.
     int baslangicNoktasiY[k / 2] = {0};
 
     for (int i = 0; i < k / 2; i++) {
         if (baslangicNoktasiX[i] == 1 && baslangicNoktasiY[i] == 1) {
             setfillstyle(SOLID_FILL, RED);
-            fillellipse(x[i], y[i], 4, 4); //Eğer başlangıç noktası ise, o noktayı kırmızı bir daire çizer.
-            continue;  // Bu zaten bir başlangıç noktası ise atlar.
+            fillellipse(x[i], y[i], 4, 4); //EÄŸer baÅŸlangÄ±Ã§ noktasÄ± ise, o noktayÄ± kÄ±rmÄ±zÄ± bir daire Ã§izer.
+            continue;  // Bu zaten bir baÅŸlangÄ±Ã§ noktasÄ± ise atlar.
         }
         for (int j = i + 1; j < k / 2; j++) {
             if (x[i] == x[j] && y[i] == y[j]) {
                 baslangicNoktasiX[j] = 1;
                 baslangicNoktasiY[j] = 1;
 
-                int n = j - i;   //Çokgenin köşe sayısı
-                int px[n], py[n], p[2 * n];  //Çokgenin x ve y koordinatlarını tutacak diziler px py ve tüm koordinatlarını tutan p dizisi.
+                int n = j - i;   //Ã‡okgenin kÃ¶ÅŸe sayÄ±sÄ±
+                int px[n], py[n], p[2 * n];  //Ã‡okgenin x ve y koordinatlarÄ±nÄ± tutacak diziler px py ve tÃ¼m koordinatlarÄ±nÄ± tutan p dizisi.
                 for (int a = i; a < j; a++) {
                     px[a - i] = x[a];
                     py[a - i] = y[a];
                 }
                 for (int a = i; a <= j; a++) {
-                    p[2 * (a - i)] = x[a];     //Çokgenin x ve y koordinatlarını tek bir dizi olan p dizisine kopyalar.
+                    p[2 * (a - i)] = x[a];     //Ã‡okgenin x ve y koordinatlarÄ±nÄ± tek bir dizi olan p dizisine kopyalar.
                     p[2 * (a - i) + 1] = y[a];
                 }
 
                 setfillstyle(SOLID_FILL, LIGHTGRAY);
                 kontrol = 0;
-                boyaCokgen(px, py, n, kare);  //Optimal cizim icin gönderilen kare değişkinene göre platformları boyar.
+                boyaCokgen(px, py, n, kare);  //Optimal cizim icin gÃ¶nderilen kare deÄŸiÅŸkinene gÃ¶re platformlarÄ± boyar.
                 
 				setfillstyle(SOLID_FILL, DARKGRAY);
-                fillpoly(n, p);  //Optimal cizim icin rezerv alanlarını boyar.
+                fillpoly(n, p);  //Optimal cizim icin rezerv alanlarÄ±nÄ± boyar.
                 
 				kontrol = 2;
-                boyaCokgen(px, py, n, kare); //Optimal cizim icin platformları çizer.
+                boyaCokgen(px, py, n, kare); //Optimal cizim icin platformlarÄ± Ã§izer.
 
             }
         }
         setfillstyle(SOLID_FILL, BLACK);
-        fillellipse(x[i], y[i], 4, 4); //Köşe noktalarına siyah bir daire çizer.
+        fillellipse(x[i], y[i], 4, 4); //KÃ¶ÅŸe noktalarÄ±na siyah bir daire Ã§izer.
         setbkcolor(BLACK);
-        line(x[i], y[i], x[i + 1], y[i + 1]); //Çokgeni çizer.
+        line(x[i], y[i], x[i + 1], y[i + 1]); //Ã‡okgeni Ã§izer.
     }
 
     delay(50000000);
     closegraph();
 }
 
-// HTTP üzerinden veri çekme işlemi için kullanılan fonksiyon
+// HTTP Ã¼zerinden veri Ã§ekme iÅŸlemi iÃ§in kullanÄ±lan fonksiyon
 size_t veriCekme(void *contents, size_t size, size_t nmemb, void *userp) {
     size_t real_size = size * nmemb;
     char *veri = (char *)userp;
@@ -197,13 +196,13 @@ int main() {
     curl_global_init(CURL_GLOBAL_DEFAULT);
     curl = curl_easy_init();
     if (curl) {
-    	// HTTP üzerinden veri çekme işlemi
+    	// HTTP Ã¼zerinden veri Ã§ekme iÅŸlemi
         curl_easy_setopt(curl, CURLOPT_URL, "http://bilgisayar.kocaeli.edu.tr/prolab1/prolab1.txt");
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, veriCekme);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, veri);
         res = curl_easy_perform(curl);
         if (res != CURLE_OK) {
-            fprintf(stderr, "curl_easy_perform() basarısız: %s\n", curl_easy_strerror(res));
+            fprintf(stderr, "curl_easy_perform() basarÄ±sÄ±z: %s\n", curl_easy_strerror(res));
         } 
 	else {
             printf("%s\n\n", veri);
@@ -213,7 +212,7 @@ int main() {
             printf("Lutfen kacinci satiri istediginizi giriniz:");
             scanf("%d", &satir);
             
-            char *karakter;		//Satır başlangıçları için pointer.
+            char *karakter;		//SatÄ±r baÅŸlangÄ±Ã§larÄ± iÃ§in pointer.
             
             if (satir == 1) {
                 karakter = strstr(veri, "1B");
@@ -257,18 +256,18 @@ int main() {
                 karakter = strstr(veri, "20B");
             }
 
-            const char *ayrac = "B(,)F";   //Ayrac'a göre karakterleri ayırır.
+            const char *ayrac = "B(,)F";   //Ayrac'a gÃ¶re karakterleri ayÄ±rÄ±r.
             karakter = strtok(karakter + 2, ayrac);
             
             while (karakter != NULL && *karakter != '\n' && *karakter != '\0') {
-                dizi[k] = atoi(karakter);     //İnteger değere çevirir.
+                dizi[k] = atoi(karakter);     //Ä°nteger deÄŸere Ã§evirir.
                 k++;
                 karakter = strtok(NULL, ayrac);
             }
             
 
             int gd = DETECT, gm;
-            initgraph(&gd, &gm, ""); //Grafik modunu başlatır.
+            initgraph(&gd, &gm, ""); //Grafik modunu baÅŸlatÄ±r.
             setbkcolor(WHITE);
             cleardevice();       //Pencereyi temizler.
 
@@ -276,7 +275,7 @@ int main() {
                 dizi[i] = dizi[i] * 10;
             }
 
-            int x[k / 2], y[k / 2];   //Çokgenlerin x ve y koordinatları için diziler.
+            int x[k / 2], y[k / 2];   //Ã‡okgenlerin x ve y koordinatlarÄ± iÃ§in diziler.
             for (int i = 0; i < k / 2; i++) {
                 x[i] = dizi[i * 2];
                 y[i] = dizi[i * 2 + 1];
@@ -284,7 +283,7 @@ int main() {
 
             setcolor(8);
 
-            // Izgara çizer.
+            // Izgara Ã§izer.
             for (int i = 1; i < 10000; i++) {
                 line(i * 10, 0, i * 10, 10000);
             }
@@ -293,20 +292,20 @@ int main() {
                 line(0, j * 10, 10000, j * 10);
             }
 
-            int baslangicNoktasiX[k / 2] = {0};  //Her noktanın başlangıç noktası olup olmadığını izlemek için bir dizi.
+            int baslangicNoktasiX[k / 2] = {0};  //Her noktanÄ±n baÅŸlangÄ±Ã§ noktasÄ± olup olmadÄ±ÄŸÄ±nÄ± izlemek iÃ§in bir dizi.
             int baslangicNoktasiY[k / 2] = {0};
 
             int cokgenSayisi = 0;
             int cokgenAlanlari[50];
             int alan2[50];
-            int alan3[50][50];  //Çokgenlerin optimal çizimleri için platformlara göre alanlarını tutan 2 boyutlu dizi.
+            int alan3[50][50];  //Ã‡okgenlerin optimal Ã§izimleri iÃ§in platformlara gÃ¶re alanlarÄ±nÄ± tutan 2 boyutlu dizi.
 
             for (int i = 0; i < k / 2; i++) {
 
                 if (baslangicNoktasiX[i] == 1 && baslangicNoktasiY[i] == 1) {
                     setfillstyle(SOLID_FILL, RED);
-                    fillellipse(x[i], y[i], 4, 4);//Eğer başlangıç noktası ise, o noktayı kırmızı bir daire çizer.
-            		continue;  // Bu zaten bir başlangıç noktası ise atlar.
+                    fillellipse(x[i], y[i], 4, 4);//EÄŸer baÅŸlangÄ±Ã§ noktasÄ± ise, o noktayÄ± kÄ±rmÄ±zÄ± bir daire Ã§izer.
+            		continue;  // Bu zaten bir baÅŸlangÄ±Ã§ noktasÄ± ise atlar.
                 }
                 for (int j = i + 1; j < k / 2; j++) {
                     if (x[i] == x[j] && y[i] == y[j]) {
@@ -315,8 +314,8 @@ int main() {
 
                         printf("\nBaslangic Noktasi olan %d. parantezdeki koordinatlar: x=%d, y=%d \n", i + 1, x[i] / 10, y[i] / 10); 
 
-                        int n = j - i;  //Çokgenin köşe sayısı
-                        int px[n], py[n]; //Çokgenin x ve y koordinatlarını tutacak diziler px py. 
+                        int n = j - i;  //Ã‡okgenin kÃ¶ÅŸe sayÄ±sÄ±
+                        int px[n], py[n]; //Ã‡okgenin x ve y koordinatlarÄ±nÄ± tutacak diziler px py. 
                         for (int a = i; a < j; a++) {
                             px[a - i] = x[a];
                             py[a - i] = y[a];
@@ -324,31 +323,31 @@ int main() {
 
                         setfillstyle(SOLID_FILL, LIGHTGRAY);
                         kontrol = 0;
-                        alan2[cokgenSayisi] = boyaCokgen(px, py, n, 10); //boyaCokgen 1*1'e göre boyama yapar ve alanı birim kare cinsinden döndürür,alan2 dizisi alanları tutar.
+                        alan2[cokgenSayisi] = boyaCokgen(px, py, n, 10); //boyaCokgen 1*1'e gÃ¶re boyama yapar ve alanÄ± birim kare cinsinden dÃ¶ndÃ¼rÃ¼r,alan2 dizisi alanlarÄ± tutar.
                         
 
                         cokgenSayisi++;
-                        int alan = cokgenAlani(n, px, py);  //Shoelace formülü ile alan hesaplar.(Matematiksel alan)
-                        cokgenAlanlari[cokgenSayisi - 1] = alan; //Matematiksel alanları bir dizide tutar.
+                        int alan = cokgenAlani(n, px, py);  //Shoelace formÃ¼lÃ¼ ile alan hesaplar.(Matematiksel alan)
+                        cokgenAlanlari[cokgenSayisi - 1] = alan; //Matematiksel alanlarÄ± bir dizide tutar.
 
                         int b = 0;
                         for (int i = 10; i <= 160; i *= 2) {
 
                             kontrol = 1;
-                            alan3[cokgenSayisi - 1][b] = boyaCokgen(px, py, n, i); //Çokgenlerin optimal çizimleri için (1*1,2*2,4*4,8*8,16*16)'a göre alanlarını hesaplar.
+                            alan3[cokgenSayisi - 1][b] = boyaCokgen(px, py, n, i); //Ã‡okgenlerin optimal Ã§izimleri iÃ§in (1*1,2*2,4*4,8*8,16*16)'a gÃ¶re alanlarÄ±nÄ± hesaplar.
                             b++;
                         }
                     }
                 }
                 setfillstyle(SOLID_FILL, BLACK);
-                fillellipse(x[i], y[i], 4, 4); //Köşe noktalarına siyah bir daire çizer.
+                fillellipse(x[i], y[i], 4, 4); //KÃ¶ÅŸe noktalarÄ±na siyah bir daire Ã§izer.
                 setbkcolor(BLACK);
-                line(x[i], y[i], x[i + 1], y[i + 1]); //Çokgeni çizer.
+                line(x[i], y[i], x[i + 1], y[i + 1]); //Ã‡okgeni Ã§izer.
             }
 
             printf("\n\nCokgen sayisi: %d\n", cokgenSayisi);
             for (int i = 0; i < cokgenSayisi; i++) {
-                printf("%d. Cokgenin matematiksel alani: %d\t\tBirim alani: %d\n", i + 1, cokgenAlanlari[i], alan2[i]); //Çokgenlerin alanlarını yazdırır.
+                printf("%d. Cokgenin matematiksel alani: %d\t\tBirim alani: %d\n", i + 1, cokgenAlanlari[i], alan2[i]); //Ã‡okgenlerin alanlarÄ±nÄ± yazdÄ±rÄ±r.
             }
 
             int tahminiRezerv[100] = {0}, gercekRezerv[100] = {0};
@@ -357,7 +356,7 @@ int main() {
             for (int i = 0; i < cokgenSayisi; i++) {
                 toplam += alan2[i];
                 tahminiRezerv[i] = alan2[i] * 10;
-                gercekRezerv[i] = cokgenAlanlari[i] * 10;  //Çokgenlerin rezervleri hesaplanır.
+                gercekRezerv[i] = cokgenAlanlari[i] * 10;  //Ã‡okgenlerin rezervleri hesaplanÄ±r.
             }
 
             printf("\n");
@@ -366,16 +365,16 @@ int main() {
 
 	    
 	    for (int i = 0; i < cokgenSayisi; i++) {
-	        printf("%d. Cokgenin matematiksel rezervi: %d\t\tBirim tahmini rezerv: %d\n", i+1, gercekRezerv[i],tahminiRezerv[i]); // Çokgenlerin rezervlerini yazdırır.
+	        printf("%d. Cokgenin matematiksel rezervi: %d\t\tBirim tahmini rezerv: %d\n", i+1, gercekRezerv[i],tahminiRezerv[i]); // Ã‡okgenlerin rezervlerini yazdÄ±rÄ±r.
 	    }
 	    
 	    for (int i = 0; i < cokgenSayisi; i++) {
 	    	toplamtahRezerv+=tahminiRezerv[i];
-	    	toplamgerRezerv+=gercekRezerv[i];  //Toplam rezerv hesaplanır.
+	    	toplamgerRezerv+=gercekRezerv[i];  //Toplam rezerv hesaplanÄ±r.
 	    }
 	
 		printf("\n\t\t\t\t\t\tToplam birim kare(1*1):%d",toplam);
-	    printf("\nToplam matematiksel rezervi: %d\t\tToplam birim kareye gore tahmini rezerv: %d\n", toplamgerRezerv,toplamtahRezerv); // Çokgenlerin toplam rezervini yazdırır.
+	    printf("\nToplam matematiksel rezervi: %d\t\tToplam birim kareye gore tahmini rezerv: %d\n", toplamgerRezerv,toplamtahRezerv); // Ã‡okgenlerin toplam rezervini yazdÄ±rÄ±r.
 	    printf("\n------------------------------------------------------------------------------------------------------------\n");
 	   
         delay(5000); 
@@ -395,7 +394,7 @@ int main() {
         for (int i = 0; i < cokgenSayisi; i++) {
 	    	  
 			for(int j=0;j<5;j++){    	
-				toplamBirimkare[j]+=alan3[i][j]; //Çokgenlerin platformlara (1*1,2*2,4*4,8*8,16*16) göre alanlarını toplayıp diziye aktarır.
+				toplamBirimkare[j]+=alan3[i][j]; //Ã‡okgenlerin platformlara (1*1,2*2,4*4,8*8,16*16) gÃ¶re alanlarÄ±nÄ± toplayÄ±p diziye aktarÄ±r.
 
 			} 
 	    }
@@ -403,17 +402,17 @@ int main() {
         printf("\n\nToplam platform sayisi(1*1,2*2,4*4,8*8,16*16)'a gore sirasiyla:\n");
 	    for(int j=0;j<5;j++){    	
 				
-			printf("%d\t",toplamBirimkare[j]); //Toplam platform sayıları karesel alanlara göre (1*1,2*2,4*4,8*8,16*16)
+			printf("%d\t",toplamBirimkare[j]); //Toplam platform sayÄ±larÄ± karesel alanlara gÃ¶re (1*1,2*2,4*4,8*8,16*16)
 		} 
 	    
 	   
 	   int kare=1;
        
 	   for(int j=0;j<5;j++){    	
-			toplamPlatform[j]+=toplamBirimkare[j]*platform;  //Toplam platform maaliyeti platformlara göre hesaplanır.(1*1,2*2,4*4,8*8,16*16)
-			toplamSondajsayisi[j]=toplamBirimkare[j]*kare;   //Toplam sondaj sayıları platformlara göre hesaplanır.(1*1,2*2,4*4,8*8,16*16)
-			toplamSondaj[j]+=toplamBirimkare[j]*kare*sondaj; //Toplam sondaj maaliyeti platformlara göre hesaplanır.(1*1,2*2,4*4,8*8,16*16)
-			maaliyet[j]=toplamPlatform[j]+toplamSondaj[j];   //Toplam maaliyet platformlara göre hesaplanır.(1*1,2*2,4*4,8*8,16*16)
+			toplamPlatform[j]+=toplamBirimkare[j]*platform;  //Toplam platform maaliyeti platformlara gÃ¶re hesaplanÄ±r.(1*1,2*2,4*4,8*8,16*16)
+			toplamSondajsayisi[j]=toplamBirimkare[j]*kare;   //Toplam sondaj sayÄ±larÄ± platformlara gÃ¶re hesaplanÄ±r.(1*1,2*2,4*4,8*8,16*16)
+			toplamSondaj[j]+=toplamBirimkare[j]*kare*sondaj; //Toplam sondaj maaliyeti platformlara gÃ¶re hesaplanÄ±r.(1*1,2*2,4*4,8*8,16*16)
+			maaliyet[j]=toplamPlatform[j]+toplamSondaj[j];   //Toplam maaliyet platformlara gÃ¶re hesaplanÄ±r.(1*1,2*2,4*4,8*8,16*16)
 			kare*=4;
 	   }
 	    
@@ -446,7 +445,7 @@ int main() {
 	   
 	   for(j=1;j<5;j++) {
 			if(maaliyet[j]<kucuk){
-				kucuk=maaliyet[j];  //En küçük maaliyet bulunur.
+				kucuk=maaliyet[j];  //En kÃ¼Ã§Ã¼k maaliyet bulunur.
 				kucukindis=j;
 			}
 	   }
@@ -456,7 +455,7 @@ int main() {
 	   		kare=10;
     	else if(kucukindis==1)
 	   		kare=20;
-	   	else if(kucukindis==2)    //En küçük maaliyete göre optimal çizim için platform boyutları(karesel alan) belirlenir.
+	   	else if(kucukindis==2)    //En kÃ¼Ã§Ã¼k maaliyete gÃ¶re optimal Ã§izim iÃ§in platform boyutlarÄ±(karesel alan) belirlenir.
 	   		kare=40;
 	   	else if(kucukindis==3)
 	   		kare=80;
@@ -465,9 +464,9 @@ int main() {
 	   		
 	   	printf("\n\nMaaliyeti en kucuk kare platform:%d*%d\n",kare/10,kare/10);	
     	printf("En kucuk toplam maaliyet:%d\tToplam platform maaliyeti:%d\tToplam sondaj maaliyeti:%d\n",kucuk,toplamPlatform[kucukindis],toplamSondaj[kucukindis]);
-    	printf("\nToplam matematiksel kar: %d\t\tToplam birim kareye gore tahmini kar: %d\n", toplamgerRezerv-kucuk,toplamtahRezerv-kucuk); // Kar hesaplanır ve yazılır.
+    	printf("\nToplam matematiksel kar: %d\t\tToplam birim kareye gore tahmini kar: %d\n", toplamgerRezerv-kucuk,toplamtahRezerv-kucuk); // Kar hesaplanÄ±r ve yazÄ±lÄ±r.
         
-		optimalCizim(x,y,k,kare); //Optimal çizim için fonksiyon çağırılır.
+		optimalCizim(x,y,k,kare); //Optimal Ã§izim iÃ§in fonksiyon Ã§aÄŸÄ±rÄ±lÄ±r.
         
 		curl_easy_cleanup(curl);
         curl_global_cleanup();
